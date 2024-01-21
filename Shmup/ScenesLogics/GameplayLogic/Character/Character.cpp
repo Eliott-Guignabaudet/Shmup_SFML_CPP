@@ -53,7 +53,10 @@ void Character::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
     // Marche Uniquement si le bound fait la même taille que le sprite
     //states.transform.combine(m_bounds.getTransform());
+#ifdef _DEBUG
     target.draw(m_bounds, states);
+#endif
+    
 }
 
 void Character::Shoot()

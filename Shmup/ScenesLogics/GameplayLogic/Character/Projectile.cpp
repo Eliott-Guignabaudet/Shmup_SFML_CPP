@@ -48,9 +48,9 @@ void Projectile::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform.combine(getTransform());
     target.draw(m_sprite, states);
-
+#ifdef _DEBUG
     target.draw(m_bounds,states);
-
+#endif
 
 }
 
