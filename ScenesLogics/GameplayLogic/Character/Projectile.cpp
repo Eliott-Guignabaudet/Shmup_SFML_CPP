@@ -24,7 +24,7 @@ void Projectile::Init(std::string a_tag,sf::Vector2f a_position, sf::Vector2f a_
 {
     m_tag = a_tag;
     setPosition(a_position);
-    setOrigin(a_tileSize/2, a_tileSize/2);
+    setOrigin(static_cast<float>(a_tileSize)/2.f, static_cast<float>(a_tileSize)/2.f);
     m_direction = a_direction;
     m_sprite.setTexture(*RessourceManager::GetInstance()->GetTexture(a_tileMap));
     m_tileIndex = sf::IntRect(a_tileIndex.first * a_tileSize, a_tileIndex.second * a_tileSize, a_tileSize, a_tileSize);
@@ -32,9 +32,11 @@ void Projectile::Init(std::string a_tag,sf::Vector2f a_position, sf::Vector2f a_
     m_speed = a_speed;
     m_bounds = sf::RectangleShape({8,16});
     m_bounds.setOrigin({-4,0});
+
     m_bounds.setFillColor(sf::Color::Transparent);
     m_bounds.setOutlineColor(sf::Color::Green);
     m_bounds.setOutlineThickness(1.f);
+    
 }
 
 void Projectile::Update(sf::Time a_deltaTime)
@@ -46,7 +48,10 @@ void Projectile::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform.combine(getTransform());
     target.draw(m_sprite, states);
+
     target.draw(m_bounds,states);
+
+
 }
 
 void Projectile::Reset()

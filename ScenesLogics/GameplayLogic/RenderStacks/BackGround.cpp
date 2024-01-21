@@ -32,7 +32,7 @@ void BackGround::Init()
     {
         m_sprites[i]->setTexture(*RessourceManager::GetInstance()->GetTexture("Tiles"));
         m_sprites[i]->setTextureRect(m_textureRect);
-        m_sprites[i]->setPosition(sf::Vector2f(0, -i * 16));
+        m_sprites[i]->setPosition(sf::Vector2f(0, static_cast<float>(-i * 16)));
         m_sprites[i]->setColor(m_spriteColor);
     }
     m_view = sf::View(sf::FloatRect(0,0, 16,16));

@@ -119,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1103,6 +1104,7 @@
       <LinkCompiled>true</LinkCompiled>
       <AdditionalIncludeDirectories>;C:\Users\Cheetoh\source\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="ScenesLogics\Menu\MenuScene.cpp" />
     <ClCompile Include="ScenesLogics\Scene.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -1194,6 +1196,7 @@
     <ClInclude Include="ScenesLogics\GameplayLogic\RenderStacks\BackGround.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\RenderStacks\UI.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\RenderStacks\World.h" />
+    <ClInclude Include="ScenesLogics\Menu\MenuScene.h" />
     <ClInclude Include="ScenesLogics\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
