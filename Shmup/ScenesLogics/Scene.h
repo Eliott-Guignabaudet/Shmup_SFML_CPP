@@ -12,6 +12,7 @@ public:
     Scene();
     ~Scene() override;
     virtual void Load();
+    virtual void Unload();
     virtual void Init();
     virtual void Update(sf::Time a_deltaTime);
     virtual void HandleEvent(sf::Event a_event);

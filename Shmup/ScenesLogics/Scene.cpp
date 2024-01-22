@@ -21,7 +21,15 @@ void Scene::Load()
     {
         stack->Load();
     }
-    
+}
+
+void Scene::Unload()
+{
+    for (ARenderStack* stack : m_renderStacks)
+    {
+        delete stack;
+    }
+    m_renderStacks.clear();
 }
 
 void Scene::Init()

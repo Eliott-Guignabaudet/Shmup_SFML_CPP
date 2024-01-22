@@ -33,6 +33,8 @@ Character::Character(sf::Vector2f a_position, sf::Vector2f a_direction, float a_
 
 void Character::Load()
 {
+    // m_sprite.setTexture(*RessourceManager::GetInstance()->GetTexture("Ships"));
+    // m_sprite.setTextureRect({0,0,32,32});
 }
 
 void Character::Init()

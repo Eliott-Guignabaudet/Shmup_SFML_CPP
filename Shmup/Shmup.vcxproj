@@ -172,6 +172,7 @@
     <ClCompile Include="ScenesLogics\Menu\AButton.cpp" />
     <ClCompile Include="ScenesLogics\Menu\MenuScene.cpp" />
     <ClCompile Include="ScenesLogics\Menu\RenderStacks\MenuUI.cpp" />
+    <ClCompile Include="ScenesLogics\Menu\StartGameButton.cpp" />
     <ClCompile Include="ScenesLogics\Scene.cpp" />
     <ClCompile Include="Shmup.cpp" />
   </ItemGroup>
@@ -192,6 +193,7 @@
     <ClInclude Include="ScenesLogics\Menu\AButton.h" />
     <ClInclude Include="ScenesLogics\Menu\MenuScene.h" />
     <ClInclude Include="ScenesLogics\Menu\RenderStacks\MenuUI.h" />
+    <ClInclude Include="ScenesLogics\Menu\StartGameButton.h" />
     <ClInclude Include="ScenesLogics\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

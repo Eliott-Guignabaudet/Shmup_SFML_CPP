@@ -1,18 +1,19 @@
 #pragma once
-#include "../StartGameButton.h"
-#include "../../ARenderStack.h"
+#include "AButton.h"
 
-class MenuUI : public ARenderStack
+class StartGameButton : public AButton
 {
-private:
-    StartGameButton m_startGameButton;
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 public:
-    MenuUI();
+    StartGameButton();
     void Load() override;
     void Init() override;
     void Update(sf::Time a_deltaTime) override;
-    void HandleEvent(sf::Event a_event) override;
+
+private:
+    void OnClick() override;
+    void OnMouseEnter() override;
+    void OnMouseExit() override;
 };

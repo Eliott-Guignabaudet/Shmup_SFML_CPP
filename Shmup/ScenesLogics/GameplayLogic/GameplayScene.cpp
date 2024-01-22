@@ -15,14 +15,24 @@ GameplayScene::GameplayScene()
 
 void GameplayScene::Load()
 {
+    if (!RessourceManager::GetInstance()->LoadTexture("Ships", "Assets/kenney_pixel-shmup/Tilemap/ships_packed.png"))
+    {
+        std::cout << "Fail to load Ships" << std::endl;
+    }
+    if (!RessourceManager::GetInstance()->LoadTexture("Tiles", "Assets/kenney_pixel-shmup/Tilemap/tiles_packed.png"))
+    {
+        std::cout << "Fail to load Tiles" << std::endl;
+    }
+    
+
+    // Load Render Stacks
     Scene::Load();
-    if (RessourceManager::GetInstance()->LoadTexture("Ships", "Assets/kenney_pixel-shmup/Tilemap/ships_packed.png"))
-    {
-        // error
-    }
-    if (RessourceManager::GetInstance()->LoadTexture("Tiles", "Assets/kenney_pixel-shmup/Tilemap/tiles_packed.png"))
-    {
-        
-    }
+}
+
+void GameplayScene::Unload()
+{
+    Scene::Unload();
+    RessourceManager::GetInstance()->UnloadTexture("Ships");
+    RessourceManager::GetInstance()->UnloadTexture("Tiles");
 }
 
