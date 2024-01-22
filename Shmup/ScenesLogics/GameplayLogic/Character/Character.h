@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../AEntity.h"
+#include "../../AEntity.h"
 
 class Character : public AEntity
 {
