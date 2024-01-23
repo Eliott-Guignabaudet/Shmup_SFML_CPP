@@ -36,6 +36,7 @@ void BackGround::Init()
         m_sprites[i]->setColor(m_spriteColor);
     }
     m_view = sf::View(sf::FloatRect(0,0, 16,16));
+    ARenderStack::Init();
 }
 
 void BackGround::Update(sf::Time a_deltaTime)

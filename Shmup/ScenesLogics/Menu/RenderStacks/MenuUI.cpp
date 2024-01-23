@@ -21,6 +21,7 @@ void MenuUI::Init()
 {
     m_startGameButton.Init();
     m_startGameButton.setPosition(400,200);
+    ARenderStack::Init();
 }
 
 void MenuUI::Update(sf::Time a_deltaTime)

@@ -42,6 +42,7 @@ void World::Init()
     {
         character->Init();
     }
+    ARenderStack::Init();
 }
 
 void World::Update(sf::Time a_deltaTime)

@@ -93,9 +93,12 @@ sf::Vector2f Manager::GetMousePositionMapped(sf::View a_view)
 {
     sf::Vector2i pixelPos = sf::Mouse::getPosition(m_window);
     sf::Vector2f worldPos = m_window.mapPixelToCoords(pixelPos, a_view);
-
-    
     return worldPos;
+}
+
+sf::Vector2u Manager::GetWindowSize()
+{
+    return m_window.getSize();
 }
 
 void Manager::HandleEvent()
