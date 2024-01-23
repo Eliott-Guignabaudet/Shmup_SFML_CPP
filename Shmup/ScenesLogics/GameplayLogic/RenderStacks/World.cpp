@@ -67,7 +67,7 @@ void World::Update(sf::Time a_deltaTime)
                     
                     sf::FloatRect absoluteProjectileBound = projectile->getTransform().transformRect(
                         projectile->GetBounds().getTransform().transformRect(
-                            sf::FloatRect(projectile->GetBounds().getPosition(), projectile->GetBounds().getSize())
+                                    projectile->GetBounds().getGlobalBounds()
                             ));
                     if (absoluteProjectileBound.contains(absoluteAiCharacterPointPosition))
                     {
