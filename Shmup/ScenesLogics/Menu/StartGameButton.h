@@ -7,7 +7,7 @@ protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 public:
-    StartGameButton();
+    StartGameButton(sf::View& a_view);
     void Load() override;
     void Init() override;
     void Update(sf::Time a_deltaTime) override;

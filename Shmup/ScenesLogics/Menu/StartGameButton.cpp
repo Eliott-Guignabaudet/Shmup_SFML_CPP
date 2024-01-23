@@ -3,7 +3,7 @@
 #include "../../Managers/Manager.h"
 #include "../../Managers/RessourceManager.h"
 
-StartGameButton::StartGameButton() : AButton(), m_text("Start", *RessourceManager::GetInstance()->GetFont("Pixel"))
+StartGameButton::StartGameButton(sf::View& a_view) : AButton(a_view), m_text("Start", *RessourceManager::GetInstance()->GetFont("Pixel"))
 {
     m_text.setFillColor(sf::Color::Black);
     m_text.setCharacterSize(30);

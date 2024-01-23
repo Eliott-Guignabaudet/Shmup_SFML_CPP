@@ -115,10 +115,6 @@ void World::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void World::HandleEvent(sf::Event a_event)
 {
-    // if (a_event.type == sf::Event::Resized)
-    // {
-    //     m_view.setSize(sf::Vector2f(800 * (a_event.size.width/a_event.size.height), 800));
-    // }
     ARenderStack::HandleEvent(a_event);
     m_player.HandleEvent(a_event);
     for (Projectile* projectile : m_activeProjectiles)

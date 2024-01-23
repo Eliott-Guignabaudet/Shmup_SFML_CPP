@@ -1,7 +1,7 @@
 #include "MenuUI.h"
 
 
-MenuUI::MenuUI() : m_startGameButton()
+MenuUI::MenuUI() : m_startGameButton(m_view)
 {
 }
 
@@ -31,6 +31,5 @@ void MenuUI::Update(sf::Time a_deltaTime)
 void MenuUI::HandleEvent(sf::Event a_event)
 {
     ARenderStack::HandleEvent(a_event);
-
     m_startGameButton.HandleEvent(a_event);
 }

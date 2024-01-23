@@ -89,6 +89,15 @@ void Manager::Draw()
     m_window.display();
 }
 
+sf::Vector2f Manager::GetMousePositionMapped(sf::View a_view)
+{
+    sf::Vector2i pixelPos = sf::Mouse::getPosition(m_window);
+    sf::Vector2f worldPos = m_window.mapPixelToCoords(pixelPos, a_view);
+
+    
+    return worldPos;
+}
+
 void Manager::HandleEvent()
 {
     sf::Event event;
