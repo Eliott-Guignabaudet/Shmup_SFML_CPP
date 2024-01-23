@@ -13,6 +13,8 @@ public:
     void Update(sf::Time a_deltaTime) override;
 
 private:
+    sf::Text m_text;
+    
     void OnClick() override;
     void OnMouseEnter() override;
     void OnMouseExit() override;

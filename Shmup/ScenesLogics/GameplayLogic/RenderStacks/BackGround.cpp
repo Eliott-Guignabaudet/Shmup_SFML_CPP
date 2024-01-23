@@ -61,4 +61,10 @@ void BackGround::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void BackGround::HandleEvent(sf::Event a_event)
 {
+    ARenderStack::HandleEvent(a_event);
+    // if (a_event.type == sf::Event::Resized)
+    // {
+    //     float ratio = static_cast<float>(a_event.size.width)/static_cast<float>(a_event.size.height);
+    //     m_view.setSize({ 16.f * ratio,16.f});
+    // }
 }

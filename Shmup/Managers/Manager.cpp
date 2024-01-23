@@ -12,8 +12,6 @@ Manager::Manager() : m_actualScene(nullptr),  m_window(sf::VideoMode(800,800), "
     m_scenes.insert({"Gameplay", gameplayScene});
     MenuScene* menuScene = new MenuScene();
     m_scenes.insert({"Menu", menuScene});
-    m_test = sf::CircleShape(10.f);
-    m_test.setOrigin({10.f, 10.f});
 }
 
 Manager::~Manager()
@@ -32,7 +30,6 @@ Manager* Manager::GetInstance()
     }
     return m_instance;
 }
-
 
 void Manager::Run()
 {
@@ -60,7 +57,6 @@ void Manager::LoadScene(std::string a_sceneName)
     m_actualScene->Load();
     m_actualScene->Init();
 }
-
 
 void Manager::LoadScene(int a_index)
 {
@@ -90,10 +86,8 @@ void Manager::Draw()
     m_window.clear(sf::Color::Black);
     m_window.draw(*m_actualScene);
     m_window.setView(sf::View({400.f, 400.f}, {800, 800}));
-    m_window.draw(m_test);
     m_window.display();
 }
-
 
 void Manager::HandleEvent()
 {
@@ -104,20 +98,6 @@ void Manager::HandleEvent()
         {
             m_window.close();
         }
-        if (event.type == sf::Event::MouseMoved)
-        {
-            m_test.setPosition({static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y)});
-        }
-        if (event.type == sf::Event::MouseButtonPressed)
-        {
-            m_test.setFillColor(sf::Color::Red);
-        }
-
-        
         m_actualScene->HandleEvent(event);
     }
 }
-
-
-
-

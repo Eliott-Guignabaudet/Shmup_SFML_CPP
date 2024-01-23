@@ -1,15 +1,22 @@
 #include "StartGameButton.h"
 
 #include "../../Managers/Manager.h"
+#include "../../Managers/RessourceManager.h"
 
-StartGameButton::StartGameButton() : AButton()
+StartGameButton::StartGameButton() : AButton(), m_text("Start", *RessourceManager::GetInstance()->GetFont("Pixel"))
 {
+    m_text.setFillColor(sf::Color::Black);
+    m_text.setCharacterSize(30);
+    //m_text.setOrigin({m_text.getLocalBounds().getSize()/2.f});
+    m_text.setPosition({(m_bounds.getLocalBounds().getSize()/2.f) - (m_text.getLocalBounds().getSize()/2.f) });
+    
 }
 
 void StartGameButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform.combine(getTransform());
     target.draw(m_bounds, states);
+    target.draw(m_text, states);
 }
 
 void StartGameButton::Load()

@@ -10,8 +10,6 @@ private:
     sf::RenderWindow m_window;
 
     static Manager* m_instance;
-
-    sf::CircleShape m_test;
     
     void Init();
     void Update(sf::Time a_deltaTime);

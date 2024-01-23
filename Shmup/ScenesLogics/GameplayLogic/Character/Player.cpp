@@ -20,7 +20,7 @@ Player::Player(sf::Vector2f a_position, sf::Vector2f a_direction, float a_speed,
 void Player::Shoot()
 {
     Character::Shoot();
-    m_shootCallBack("Player", getPosition(), sf::Vector2f(0,-1), "Tiles", {0,0}, 16, 100);
+    m_shootCallBack("Player", getPosition(), sf::Vector2f(0,-1), "Tiles", {0,0}, 16, 500);
 }
 
 void Player::Init()
