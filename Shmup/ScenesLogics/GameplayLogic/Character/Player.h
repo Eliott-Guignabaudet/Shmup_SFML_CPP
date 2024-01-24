@@ -9,6 +9,9 @@ private:
     std::pair<bool, bool> m_xAxis;
     std::pair<bool, bool> m_yAxis;
     std::function<void(std::string , sf::Vector2f , sf::Vector2f , std::string ,std::pair<int, int>, int,  float)> m_shootCallBack;
+    float m_fireCoolDown;
+    float m_timeSinceLastShot;
+    bool m_isShooting;
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void Shoot() override;

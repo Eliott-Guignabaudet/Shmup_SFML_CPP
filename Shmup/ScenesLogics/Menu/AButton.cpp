@@ -14,12 +14,9 @@ void AButton::HandleEvent(sf::Event a_event)
     {
         bool isMouseInBounds;
         
-        //sf::FloatRect absoluteBoundsRect = getTransform().transformRect(m_bounds.getTransform().transformRect(m_bounds.getLocalBounds()));
         sf::FloatRect absoluteBoundsRect = getTransform().transformRect(m_bounds.getLocalBounds());
         sf::Vector2f mousePositionMapped = Manager::GetInstance()->GetMousePositionMapped(m_view);
         isMouseInBounds = absoluteBoundsRect.contains(mousePositionMapped);
-
-        std::cout << "Mouse Mapped Position: " << mousePositionMapped.x << ", " << mousePositionMapped.y << std::endl;
         
         if (isMouseInBounds && !m_isMouseEnter)
         {

@@ -12,7 +12,10 @@ Player::Player(sf::Vector2f a_position, sf::Vector2f a_direction, float a_speed,
     Character(a_position, a_direction, a_speed, a_maxLife),
     m_xAxis(false, false),
     m_yAxis(false, false),
-    m_shootCallBack(a_shootCallBack)
+    m_shootCallBack(a_shootCallBack),
+    m_fireCoolDown(0.1f),
+    m_timeSinceLastShot(0),
+    m_isShooting(false)
 {
     
 }
@@ -38,6 +41,12 @@ void Player::Update(sf::Time a_deltaTime)
     if (m_yAxis.first) newDirection.y -=1;
     if (m_yAxis.second) newDirection.y +=1;
     SetDirection(newDirection);
+    m_timeSinceLastShot += a_deltaTime.asSeconds();
+    if (m_timeSinceLastShot >= m_fireCoolDown && m_isShooting)
+    {
+        m_timeSinceLastShot =0;
+        Shoot();
+    }
     //rotate(180* a_deltaTime.asSeconds());
     Character::Update(a_deltaTime);
 }
@@ -68,7 +77,7 @@ void Player::HandleEvent(sf::Event a_event)
             m_xAxis.second = true;
             break;
         case sf::Keyboard::Scan::Space:
-            Shoot();
+            m_isShooting = true;
             break;
         case sf::Keyboard::Scan::Enter:
             setPosition({0,0});
@@ -90,6 +99,9 @@ void Player::HandleEvent(sf::Event a_event)
             break;
         case sf::Keyboard::Scan::Left:
             m_xAxis.second = false;
+            break;
+        case sf::Keyboard::Scan::Space:
+            m_isShooting = false;
             break;
         }
     }
