@@ -4,11 +4,8 @@ AICharacter::AICharacter()
 {
 }
 
-AICharacter::AICharacter(sf::Vector2f a_position, sf::Vector2f a_direction, float a_speed, float a_maxLife,
-                         std::function<void(std::string, sf::Vector2f, sf::Vector2f, std::string, std::pair<int, int>, int, float)>
-                         a_shootCallBack):
-    Character(a_position, a_direction, a_speed, a_maxLife),
-    m_shootCallBack(a_shootCallBack)
+AICharacter::AICharacter(sf::Vector2f a_position, sf::Vector2f a_direction, float a_speed, float a_maxLife):
+    Character(a_position, a_direction, a_speed, a_maxLife)
 {
 }
 

@@ -13,7 +13,7 @@ protected:
 
 public:
     AICharacter();
-    AICharacter(sf::Vector2f a_position, sf::Vector2f a_direction, float a_speed, float a_maxLife, std::function<void(std::string , sf::Vector2f , sf::Vector2f , std::string ,std::pair<int, int>, int,  float)> a_shootCallBack);
+    AICharacter(sf::Vector2f a_position, sf::Vector2f a_direction, float a_speed, float a_maxLife);
     ~AICharacter() override;
     void Init() override;
     void Update(sf::Time a_deltaTime) override;
