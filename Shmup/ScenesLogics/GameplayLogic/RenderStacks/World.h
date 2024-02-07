@@ -21,6 +21,7 @@ public:
     void Load() override;
     void Init() override;
     void Update(sf::Time a_deltaTime) override;
+    void CheckProjectileCollisions(Projectile* a_projectile);
     void HandleEvent(sf::Event a_event) override;
     void ActiveProjectile(std::string a_tag, sf::Vector2f a_position, sf::Vector2f a_direction, std::string a_tileMap,std::pair<int, int> a_tileIndex, int a_tileSize, float a_speed);
     void DisableProjectile(Projectile* a_projectile);

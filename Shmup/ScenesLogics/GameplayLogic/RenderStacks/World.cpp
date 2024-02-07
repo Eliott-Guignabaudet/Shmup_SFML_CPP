@@ -4,6 +4,7 @@
 #include <iostream>
 #include <Windows.h>
 
+#include "../Character/AiSuicideCharacter.h"
 #include "../Character/Player.h"
 
 World::World() : m_activeProjectiles()
@@ -14,9 +15,10 @@ World::World() : m_activeProjectiles()
     Player player(sf::Vector2f(0,0), sf::Vector2f(1,5), 250, 1, function);
     m_player = player;
 
-    AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0,-200), sf::Vector2f(0, 0), 50, 1, function);
+    AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0,-200), sf::Vector2f(0, 0), 50, 1);
     m_aiCharacters.push_back(aiCharacter);
-    
+    AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),player.getPosition() - sf::Vector2f(-100, -200) ,10000, 1 );
+    m_aiCharacters.push_back(suicideCharacter);
     m_view.reset(sf::FloatRect(-400,-400,800,800));
 }
 
@@ -55,45 +57,50 @@ void World::Update(sf::Time a_deltaTime)
     for (Projectile* projectile : m_activeProjectiles)
     {
         projectile->Update(a_deltaTime);
+        CheckProjectileCollisions(projectile);
+        
+    }
+    
+}
 
-        if (projectile->GetTag() == "Player")
+void World::CheckProjectileCollisions(Projectile* a_projectile)
+{
+    if (a_projectile->GetTag() == "Player")
+    {
+        for (AICharacter* aiCharacter : m_aiCharacters)
         {
-            for (AICharacter* aiCharacter : m_aiCharacters)
+            for (int i = 0; i < aiCharacter->GetBounds().getPointCount(); ++i)
             {
-                for (int i = 0; i < aiCharacter->GetBounds().getPointCount(); ++i)
-                {
-                    sf::Vector2f absoluteAiCharacterPointPosition = aiCharacter->getTransform().transformPoint(
-                        aiCharacter->GetBounds().getTransform().transformPoint(
-                            aiCharacter->GetBounds().getPoint(i)));
+                sf::Vector2f absoluteAiCharacterPointPosition = aiCharacter->getTransform().transformPoint(
+                    aiCharacter->GetBounds().getTransform().transformPoint(
+                        aiCharacter->GetBounds().getPoint(i)));
                     
-                    sf::FloatRect absoluteProjectileBound = projectile->getTransform().transformRect(
-                        projectile->GetBounds().getTransform().transformRect(
-                                    projectile->GetBounds().getGlobalBounds()
-                            ));
-                    if (absoluteProjectileBound.contains(absoluteAiCharacterPointPosition))
+                sf::FloatRect absoluteProjectileBound = a_projectile->getTransform().transformRect(
+                    a_projectile->GetBounds().getTransform().transformRect(
+                                a_projectile->GetBounds().getGlobalBounds()
+                        ));
+                if (absoluteProjectileBound.contains(absoluteAiCharacterPointPosition))
+                {
+                    aiCharacter->TakeDamage();
+                    if (aiCharacter->GetIsDead())
                     {
-                        aiCharacter->TakeDamage();
-                        if (aiCharacter->GetIsDead())
-                        {
-                            delete aiCharacter;
-                            std::vector<AICharacter*>::iterator index = std::find(m_aiCharacters.begin(), m_aiCharacters.end(), aiCharacter);
-                            m_aiCharacters.erase(index);
-                        }
-                        DisableProjectile(projectile);
-                        break;
+                        delete aiCharacter;
+                        std::vector<AICharacter*>::iterator index = std::find(m_aiCharacters.begin(), m_aiCharacters.end(), aiCharacter);
+                        m_aiCharacters.erase(index);
                     }
-
+                    DisableProjectile(a_projectile);
+                    break;
                 }
 
             }
-        }
-        
-        if (projectile->getPosition().x < -400 || projectile->getPosition().y < -400 || projectile->getPosition().x > 400 || projectile->getPosition().y > 400)
-        {
-            DisableProjectile(projectile);
+
         }
     }
-    
+        
+    if (a_projectile->getPosition().x < -400 || a_projectile->getPosition().y < -400 || a_projectile->getPosition().x > 400 || a_projectile->getPosition().y > 400)
+    {
+        DisableProjectile(a_projectile);
+    }
 }
 
 void World::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -1,6 +1,8 @@
-﻿#include "Character.h"
+﻿#define _USE_MATH_DEFINES
+#include "Character.h"
 
 #include <iostream>
+#include <math.h>
 
 #include "../../../Managers/RessourceManager.h"
 
@@ -79,6 +81,14 @@ void Character::SetDirection(sf::Vector2f a_direction)
     {
         float magnitude = ((m_direction.x * m_direction.x) + (m_direction.y * m_direction.y));
         m_direction = m_direction/magnitude; 
+    }
+    if (m_direction != sf::Vector2f(0,0))
+    {
+        setRotation((atan2(m_direction.y, m_direction.x)*180/static_cast<float>(M_PI))+90.f);
+    }
+    else
+    {
+        setRotation(0);
     }
 }
 
