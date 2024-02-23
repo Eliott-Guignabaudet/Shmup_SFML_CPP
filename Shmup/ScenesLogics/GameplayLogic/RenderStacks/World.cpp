@@ -3,7 +3,7 @@
 #include <functional>
 #include <iostream>
 #include <Windows.h>
-
+#include <math.h>
 #include "../Character/AiSuicideCharacter.h"
 #include "../Character/Player.h"
 
@@ -12,12 +12,12 @@ World::World() : m_activeProjectiles()
     using namespace std::placeholders;
     m_pool = new ProjectilePool(10);
     auto function = std::bind(&World::ActiveProjectile, this, _1, _2, _3, _4, _5, _6, _7);
-    Player player(sf::Vector2f(0,0), sf::Vector2f(1,5), 250, 1, function);
+    Player player(sf::Vector2f(0,0), sf::Vector2f(1,5), 250, 3, function);
     m_player = player;
 
-    AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0,-200), sf::Vector2f(0, 0), 50, 1);
+    AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0,-200), sf::Vector2f(0, 0), 50, 10);
     m_aiCharacters.push_back(aiCharacter);
-    AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),player.getPosition() - sf::Vector2f(-100, -200) ,10000, 1 );
+    AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),player.getPosition() - sf::Vector2f(-100, -200) ,20000, 1 );
     m_aiCharacters.push_back(suicideCharacter);
     m_view.reset(sf::FloatRect(-400,-400,800,800));
 }
@@ -53,6 +53,28 @@ void World::Update(sf::Time a_deltaTime)
     for (AICharacter* character : m_aiCharacters)
     {
         character->Update(a_deltaTime);
+
+        // sf::Vector2f absoluteAiCharacterPointPosition = character->getTransform().transformPoint(
+        //     character->GetBounds().getTransform().transformPoint(
+        //         character->GetBounds().getPosition()
+        //     )
+        // );
+        // sf::Vector2f absolutePlayerPosition = m_player.getTransform().transformPoint(
+        //     m_player.GetBounds().getTransform().transformPoint(
+        //         m_player.GetBounds().getPosition()
+        //     ));
+        sf::Vector2f distance = m_player.getPosition() - character->getPosition();
+        distance.x = abs(distance.x);
+        distance.y = abs(distance.y);
+        float distanceMagnitude = (distance.x + distance.y);
+        float minDistance = (character->GetBounds().getRadius() + m_player.GetBounds().getRadius())*1.5f;
+        if (distanceMagnitude <= minDistance)
+        {
+            character->TakeDamage();
+            m_player.TakeDamage();
+            std::cout << "Collision!" << std::endl;
+        }
+        
     }
     for (Projectile* projectile : m_activeProjectiles)
     {

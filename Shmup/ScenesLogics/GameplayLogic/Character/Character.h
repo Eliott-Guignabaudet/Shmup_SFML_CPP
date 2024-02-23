@@ -20,8 +20,8 @@ protected:
     // Die if Current life equal 0
     virtual void Die();
     
-    void SetDirection(sf::Vector2f a_direction);
-    
+    virtual void SetDirection(sf::Vector2f a_direction);
+    sf::Vector2f GetDirection();
     
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 public:

@@ -19,4 +19,7 @@ public:
     void Update(sf::Time a_deltaTime) override;
     void HandleEvent(sf::Event a_event) override;
     void Load() override;
+
+protected:
+    void SetDirection(sf::Vector2f a_direction) override;
 };
