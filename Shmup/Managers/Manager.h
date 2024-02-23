@@ -24,4 +24,5 @@ public:
     sf::Vector2f GetMousePositionMapped(sf::View a_view);
     sf::Vector2u GetWindowSize();
     static Manager* GetInstance();
+    sf::RenderWindow& GetWindow();
 };

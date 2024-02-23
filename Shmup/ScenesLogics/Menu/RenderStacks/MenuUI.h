@@ -1,4 +1,5 @@
 #pragma once
+#include "../QuitGameButton.h"
 #include "../StartGameButton.h"
 #include "../../ARenderStack.h"
 
@@ -6,6 +7,7 @@ class MenuUI : public ARenderStack
 {
 private:
     StartGameButton m_startGameButton;
+    QuitGameButton m_quitGameButton;
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

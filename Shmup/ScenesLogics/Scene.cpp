@@ -1,4 +1,6 @@
 ﻿#include "Scene.h"
+
+#include "../Managers/DestructionManager.h"
 #include "../Managers/RessourceManager.h"
 
 
@@ -27,7 +29,7 @@ void Scene::Unload()
 {
     for (ARenderStack* stack : m_renderStacks)
     {
-        delete stack;
+        DestructionManager::GetInstance()->AddPtrToDestroy(stack);
     }
     m_renderStacks.clear();
 }

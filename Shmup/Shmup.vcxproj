@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Managers\DestructionManager.cpp" />
     <ClCompile Include="Managers\Manager.cpp" />
     <ClCompile Include="Managers\RessourceManager.cpp" />
     <ClCompile Include="ScenesLogics\AEntity.cpp" />
@@ -172,12 +173,14 @@
     <ClCompile Include="ScenesLogics\GameplayLogic\RenderStacks\World.cpp" />
     <ClCompile Include="ScenesLogics\Menu\AButton.cpp" />
     <ClCompile Include="ScenesLogics\Menu\MenuScene.cpp" />
+    <ClCompile Include="ScenesLogics\Menu\QuitGameButton.cpp" />
     <ClCompile Include="ScenesLogics\Menu\RenderStacks\MenuUI.cpp" />
     <ClCompile Include="ScenesLogics\Menu\StartGameButton.cpp" />
     <ClCompile Include="ScenesLogics\Scene.cpp" />
     <ClCompile Include="Shmup.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Managers\DestructionManager.h" />
     <ClInclude Include="Managers\Manager.h" />
     <ClInclude Include="Managers\RessourceManager.h" />
     <ClInclude Include="ScenesLogics\AEntity.h" />
@@ -194,6 +197,7 @@
     <ClInclude Include="ScenesLogics\GameplayLogic\RenderStacks\World.h" />
     <ClInclude Include="ScenesLogics\Menu\AButton.h" />
     <ClInclude Include="ScenesLogics\Menu\MenuScene.h" />
+    <ClInclude Include="ScenesLogics\Menu\QuitGameButton.h" />
     <ClInclude Include="ScenesLogics\Menu\RenderStacks\MenuUI.h" />
     <ClInclude Include="ScenesLogics\Menu\StartGameButton.h" />
     <ClInclude Include="ScenesLogics\Scene.h" />

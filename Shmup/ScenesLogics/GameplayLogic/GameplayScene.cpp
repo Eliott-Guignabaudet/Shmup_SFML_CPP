@@ -24,7 +24,10 @@ void GameplayScene::Load()
     {
         std::cout << "Fail to load Tiles" << std::endl;
     }
-    
+    if (!RessourceManager::GetInstance()->LoadFont("Pixel", "Assets/Fonts/depixel/DePixelHalbfett.otf"))
+    {
+        std::cout << "Fail to load Font Pixel" << std::endl;
+    }
 
     // Load Render Stacks
     Scene::Load();
@@ -35,5 +38,7 @@ void GameplayScene::Unload()
     Scene::Unload();
     RessourceManager::GetInstance()->UnloadTexture("Ships");
     RessourceManager::GetInstance()->UnloadTexture("Tiles");
+    RessourceManager::GetInstance()->UnloadFont("Pixel");
+
 }
 

@@ -80,6 +80,7 @@ void World::Update(sf::Time a_deltaTime)
                 std::vector<AICharacter*>::iterator index = std::find(
                     m_aiCharacters.begin(), m_aiCharacters.end(), character);
                 m_aiCharacters.erase(index);
+                m_player.AddScore(100);
             }
             m_player.TakeDamage();
             std::cout << "Collision!" << std::endl;
@@ -117,6 +118,7 @@ void World::CheckProjectileCollisions(Projectile* a_projectile)
                         std::vector<AICharacter*>::iterator index = std::find(
                             m_aiCharacters.begin(), m_aiCharacters.end(), aiCharacter);
                         m_aiCharacters.erase(index);
+                        m_player.AddScore(100);
                     }
                     DisableProjectile(a_projectile);
                     break;

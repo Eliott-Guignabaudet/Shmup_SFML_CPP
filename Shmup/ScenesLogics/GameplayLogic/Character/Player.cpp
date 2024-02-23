@@ -1,6 +1,7 @@
 ﻿#include "Player.h"
 
 #include "../../../Managers/Manager.h"
+#include "../../../Managers/RessourceManager.h"
 
 
 Player::Player() :
@@ -19,7 +20,8 @@ Player::Player(sf::Vector2f a_position, sf::Vector2f a_direction, float a_speed,
     m_fireCoolDown(0.1f),
     m_timeSinceLastShot(0),
     m_isShooting(false),
-    m_invicibleTime(1.f)
+    m_invicibleTime(1.f),
+    m_score(0)
 {
     
 }
@@ -70,9 +72,18 @@ void Player::TakeDamage()
     }
 }
 
+void Player::AddScore(int a_score)
+{
+    m_score += a_score;
+}
+
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     Character::draw(target, states);
+    sf::Text scoreText(std::to_string(m_score),*RessourceManager::GetInstance()->GetFont("Pixel"));
+    
+    scoreText.setPosition(-380,-380);
+    target.draw(scoreText);
 }
 
 

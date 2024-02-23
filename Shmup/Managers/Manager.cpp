@@ -1,5 +1,6 @@
 ﻿#include "Manager.h"
 
+#include "DestructionManager.h"
 #include "../ScenesLogics/GameplayLogic/GameplayScene.h"
 #include "../ScenesLogics/Menu/MenuScene.h"
 
@@ -43,7 +44,7 @@ void Manager::Run()
         sf::Time deltaTime = m_clock.restart();
         Update(deltaTime);
         Draw();
-        
+        DestructionManager::GetInstance()->DestroyPtr();
     }
 }
 
@@ -99,6 +100,11 @@ sf::Vector2f Manager::GetMousePositionMapped(sf::View a_view)
 sf::Vector2u Manager::GetWindowSize()
 {
     return m_window.getSize();
+}
+
+sf::RenderWindow& Manager::GetWindow()
+{
+    return m_window;
 }
 
 void Manager::HandleEvent()
