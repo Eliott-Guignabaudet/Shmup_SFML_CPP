@@ -12,6 +12,7 @@ private:
     float m_fireCoolDown;
     float m_timeSinceLastShot;
     bool m_isShooting;
+    float m_invicibleTime;
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void Shoot() override;
@@ -22,6 +23,6 @@ public:
     void Init() override;
     void Update(sf::Time a_deltaTime) override;
     void HandleEvent(sf::Event a_event) override;
-    
+    void TakeDamage() override;
 };
 

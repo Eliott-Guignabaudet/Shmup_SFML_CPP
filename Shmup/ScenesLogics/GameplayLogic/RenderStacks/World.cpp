@@ -9,19 +9,7 @@
 
 World::World() : m_activeProjectiles()
 {
-    using namespace std::placeholders;
-    m_pool = new ProjectilePool(10);
-    auto function = std::bind(&World::ActiveProjectile, this, _1, _2, _3, _4, _5, _6, _7);
-    Player player(sf::Vector2f(0, 0), sf::Vector2f(1, 5), 250, 3, function);
-    m_player = player;
 
-    AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0, -200), sf::Vector2f(0, 0), 50, 10);
-    m_aiCharacters.push_back(aiCharacter);
-    AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),
-                                                                  player.getPosition() - sf::Vector2f(-100, -200),
-                                                                  20000, 1);
-    m_aiCharacters.push_back(suicideCharacter);
-    m_view.reset(sf::FloatRect(-400, -400, 800, 800));
 }
 
 World::~World()
@@ -36,6 +24,19 @@ World::~World()
 
 void World::Load()
 {
+    using namespace std::placeholders;
+    m_pool = new ProjectilePool(10);
+    auto function = std::bind(&World::ActiveProjectile, this, _1, _2, _3, _4, _5, _6, _7);
+    Player player(sf::Vector2f(0, 0), sf::Vector2f(1, 5), 250, 2, function);
+    m_player = player;
+
+    AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0, -200), sf::Vector2f(0, 0), 50, 10);
+    m_aiCharacters.push_back(aiCharacter);
+    AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),
+                                                                  player.getPosition() - sf::Vector2f(-100, -200),
+                                                                  20000, 1);
+    m_aiCharacters.push_back(suicideCharacter);
+    m_view.reset(sf::FloatRect(-400, -400, 800, 800));
     m_player.Load();
 }
 
@@ -73,6 +74,13 @@ void World::Update(sf::Time a_deltaTime)
         if (distanceMagnitude <= minDistance)
         {
             character->TakeDamage();
+            if (character->GetIsDead())
+            {
+                delete character;
+                std::vector<AICharacter*>::iterator index = std::find(
+                    m_aiCharacters.begin(), m_aiCharacters.end(), character);
+                m_aiCharacters.erase(index);
+            }
             m_player.TakeDamage();
             std::cout << "Collision!" << std::endl;
         }

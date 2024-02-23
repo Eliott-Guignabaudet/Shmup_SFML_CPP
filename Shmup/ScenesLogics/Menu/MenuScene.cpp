@@ -14,10 +14,10 @@ void MenuScene::Load()
     {
         
     }
-    if (!RessourceManager::GetInstance()->LoadFont("Arial", "Assets/Fonts/arial.ttf"))
-    {
-        
-    }
+    // if (!RessourceManager::GetInstance()->LoadFont("Arial", "Assets/Fonts/arial.ttf"))
+    // {
+    //     
+    // }
     MenuUI* menuUI = new  MenuUI();
     m_renderStacks.push_back(menuUI);
     Scene::Load();

@@ -1,10 +1,13 @@
 ﻿#include "Player.h"
 
+#include "../../../Managers/Manager.h"
+
 
 Player::Player() :
     Character(),
     m_xAxis(false, false),
-    m_yAxis(false, false)
+    m_yAxis(false, false),
+    m_invicibleTime(1.f)
 {
 }
 
@@ -15,7 +18,8 @@ Player::Player(sf::Vector2f a_position, sf::Vector2f a_direction, float a_speed,
     m_shootCallBack(a_shootCallBack),
     m_fireCoolDown(0.1f),
     m_timeSinceLastShot(0),
-    m_isShooting(false)
+    m_isShooting(false),
+    m_invicibleTime(1.f)
 {
     
 }
@@ -49,6 +53,21 @@ void Player::Update(sf::Time a_deltaTime)
     }
     //rotate(180* a_deltaTime.asSeconds());
     Character::Update(a_deltaTime);
+    m_invicibleTime += a_deltaTime.asSeconds();
+}
+
+void Player::TakeDamage()
+{
+    if (m_invicibleTime < 1.f)
+    {
+        return;
+    }
+    Character::TakeDamage();
+    m_invicibleTime = 0.f;
+    if (GetIsDead())
+    {
+        Manager::GetInstance()->LoadScene("Menu");
+    }
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
