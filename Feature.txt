@@ -1,3 +1,5 @@
+- game over
+- score
 - Plusieurs niveaux
 - 3-4 IA ennemis
 - Mode vagues inifnis

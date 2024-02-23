@@ -12,14 +12,16 @@ World::World() : m_activeProjectiles()
     using namespace std::placeholders;
     m_pool = new ProjectilePool(10);
     auto function = std::bind(&World::ActiveProjectile, this, _1, _2, _3, _4, _5, _6, _7);
-    Player player(sf::Vector2f(0,0), sf::Vector2f(1,5), 250, 3, function);
+    Player player(sf::Vector2f(0, 0), sf::Vector2f(1, 5), 250, 3, function);
     m_player = player;
 
-    AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0,-200), sf::Vector2f(0, 0), 50, 10);
+    AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0, -200), sf::Vector2f(0, 0), 50, 10);
     m_aiCharacters.push_back(aiCharacter);
-    AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),player.getPosition() - sf::Vector2f(-100, -200) ,20000, 1 );
+    AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),
+                                                                  player.getPosition() - sf::Vector2f(-100, -200),
+                                                                  20000, 1);
     m_aiCharacters.push_back(suicideCharacter);
-    m_view.reset(sf::FloatRect(-400,-400,800,800));
+    m_view.reset(sf::FloatRect(-400, -400, 800, 800));
 }
 
 World::~World()
@@ -67,22 +69,19 @@ void World::Update(sf::Time a_deltaTime)
         distance.x = abs(distance.x);
         distance.y = abs(distance.y);
         float distanceMagnitude = (distance.x + distance.y);
-        float minDistance = (character->GetBounds().getRadius() + m_player.GetBounds().getRadius())*1.5f;
+        float minDistance = (character->GetBounds().getRadius() + m_player.GetBounds().getRadius()) * 1.5f;
         if (distanceMagnitude <= minDistance)
         {
             character->TakeDamage();
             m_player.TakeDamage();
             std::cout << "Collision!" << std::endl;
         }
-        
     }
     for (Projectile* projectile : m_activeProjectiles)
     {
         projectile->Update(a_deltaTime);
         CheckProjectileCollisions(projectile);
-        
     }
-    
 }
 
 void World::CheckProjectileCollisions(Projectile* a_projectile)
@@ -96,30 +95,30 @@ void World::CheckProjectileCollisions(Projectile* a_projectile)
                 sf::Vector2f absoluteAiCharacterPointPosition = aiCharacter->getTransform().transformPoint(
                     aiCharacter->GetBounds().getTransform().transformPoint(
                         aiCharacter->GetBounds().getPoint(i)));
-                    
+
                 sf::FloatRect absoluteProjectileBound = a_projectile->getTransform().transformRect(
                     a_projectile->GetBounds().getTransform().transformRect(
-                                a_projectile->GetBounds().getGlobalBounds()
-                        ));
+                        a_projectile->GetBounds().getGlobalBounds()
+                    ));
                 if (absoluteProjectileBound.contains(absoluteAiCharacterPointPosition))
                 {
                     aiCharacter->TakeDamage();
                     if (aiCharacter->GetIsDead())
                     {
                         delete aiCharacter;
-                        std::vector<AICharacter*>::iterator index = std::find(m_aiCharacters.begin(), m_aiCharacters.end(), aiCharacter);
+                        std::vector<AICharacter*>::iterator index = std::find(
+                            m_aiCharacters.begin(), m_aiCharacters.end(), aiCharacter);
                         m_aiCharacters.erase(index);
                     }
                     DisableProjectile(a_projectile);
                     break;
                 }
-
             }
-
         }
     }
-        
-    if (a_projectile->getPosition().x < -400 || a_projectile->getPosition().y < -400 || a_projectile->getPosition().x > 400 || a_projectile->getPosition().y > 400)
+
+    if (a_projectile->getPosition().x < -400 || a_projectile->getPosition().y < -400 || a_projectile->getPosition().x >
+        400 || a_projectile->getPosition().y > 400)
     {
         DisableProjectile(a_projectile);
     }
@@ -154,21 +153,18 @@ void World::HandleEvent(sf::Event a_event)
 }
 
 void World::ActiveProjectile(std::string a_tag, sf::Vector2f a_position, sf::Vector2f a_direction,
-    std::string a_tileMap, std::pair<int, int> a_tileIndex, int a_tileSize, float a_speed)
+                             std::string a_tileMap, std::pair<int, int> a_tileIndex, int a_tileSize, float a_speed)
 {
     Projectile* projectile = m_pool->GetProjectile();
     projectile->Init(a_tag, a_position, a_direction, a_tileMap, a_tileIndex, a_tileSize, a_speed);
     m_activeProjectiles.push_back(projectile);
-    
 }
 
 void World::DisableProjectile(Projectile* a_projectile)
 {
     Projectile* projectile = a_projectile;
-    std::vector<Projectile*>::iterator index = std::find(m_activeProjectiles.begin(), m_activeProjectiles.end(), a_projectile) ;
+    std::vector<Projectile*>::iterator index = std::find(m_activeProjectiles.begin(), m_activeProjectiles.end(),
+                                                         a_projectile);
     m_activeProjectiles.erase(index);
     m_pool->InsertProjectile(projectile);
 }
-
-
-
