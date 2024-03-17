@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <math.h>
 
+#include "../../../Managers/DestructionManager.h"
 #include "../Character/AIShootVertical.h"
 #include "../Character/AiSuicideCharacter.h"
 #include "../Character/Player.h"
@@ -62,15 +63,13 @@ void World::Update(sf::Time a_deltaTime)
     {
         character->Update(a_deltaTime);
 
-        // sf::Vector2f absoluteAiCharacterPointPosition = character->getTransform().transformPoint(
-        //     character->GetBounds().getTransform().transformPoint(
-        //         character->GetBounds().getPosition()
-        //     )
-        // );
-        // sf::Vector2f absolutePlayerPosition = m_player.getTransform().transformPoint(
-        //     m_player.GetBounds().getTransform().transformPoint(
-        //         m_player.GetBounds().getPosition()
-        //     ));
+
+        if (abs(character->getPosition().x) > 400 || abs(character->getPosition().y) > 400)
+        {
+            RemoveAI(character);
+            continue;
+        }
+        
         sf::Vector2f distance = m_player.getPosition() - character->getPosition();
         distance.x = abs(distance.x);
         distance.y = abs(distance.y);
@@ -81,10 +80,7 @@ void World::Update(sf::Time a_deltaTime)
             character->TakeDamage();
             if (character->GetIsDead())
             {
-                delete character;
-                std::vector<AICharacter*>::iterator index = std::find(
-                    m_aiCharacters.begin(), m_aiCharacters.end(), character);
-                m_aiCharacters.erase(index);
+                RemoveAI(character);
                 m_player.AddScore(100);
             }
             m_player.TakeDamage();
@@ -208,3 +204,12 @@ void World::DisableProjectile(Projectile* a_projectile)
     m_activeProjectiles.erase(index);
     m_pool->InsertProjectile(a_projectile);
 }
+
+void World::RemoveAI(AICharacter* a_aiCharacter)
+{
+    delete a_aiCharacter;
+    std::vector<AICharacter*>::iterator index = std::find(
+        m_aiCharacters.begin(), m_aiCharacters.end(), a_aiCharacter);
+    m_aiCharacters.erase(index);
+}
+
