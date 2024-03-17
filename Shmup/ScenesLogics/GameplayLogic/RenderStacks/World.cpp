@@ -130,6 +130,24 @@ void World::CheckProjectileCollisions(Projectile* a_projectile)
                 }
             }
         }
+    }else if (a_projectile->GetTag() == "AI")
+    {
+        for (int i = 0; i < m_player.GetBounds().getPointCount(); ++i)
+        {
+            sf::Vector2f absolutePlayerCharacterPointPosition = m_player.getTransform().transformPoint(
+                    m_player.GetBounds().getTransform().transformPoint(
+                        m_player.GetBounds().getPoint(i)));
+
+            sf::FloatRect absoluteProjectileBound = a_projectile->getTransform().transformRect(
+                a_projectile->GetBounds().getTransform().transformRect(
+                    a_projectile->GetBounds().getGlobalBounds()
+                ));
+            if (absoluteProjectileBound.contains(absolutePlayerCharacterPointPosition))
+            {
+                m_player.TakeDamage();
+                DisableProjectile(a_projectile);
+            }
+        }
     }
 
     if (a_projectile->getPosition().x < -400 || a_projectile->getPosition().y < -400 || a_projectile->getPosition().x >
