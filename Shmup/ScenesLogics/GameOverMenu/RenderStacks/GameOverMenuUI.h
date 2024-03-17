@@ -6,6 +6,7 @@ class GameOverMenuUI : public ARenderStack
 {
 private:
     QuitGameButton m_quitGameButton;
+    sf::Text m_gameOverText;
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 public:

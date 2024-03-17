@@ -88,12 +88,16 @@ void World::Update(sf::Time a_deltaTime)
                 m_player.AddScore(100);
             }
             m_player.TakeDamage();
-            std::cout << "Collision!" << std::endl;
         }
     }
     for (Projectile* projectile : m_activeProjectiles)
     {
         projectile->Update(a_deltaTime);
+        std::vector<Projectile*>::iterator index = std::find(m_activeProjectiles.begin(), m_activeProjectiles.end(),projectile);
+        if (index == m_activeProjectiles.end())
+        {
+            continue;
+        }
         CheckProjectileCollisions(projectile);
     }
 }
@@ -145,6 +149,7 @@ void World::CheckProjectileCollisions(Projectile* a_projectile)
             if (absoluteProjectileBound.contains(absolutePlayerCharacterPointPosition))
             {
                 m_player.TakeDamage();
+
                 DisableProjectile(a_projectile);
             }
         }
@@ -195,9 +200,11 @@ void World::ActiveProjectile(std::string a_tag, sf::Vector2f a_position, sf::Vec
 
 void World::DisableProjectile(Projectile* a_projectile)
 {
-    Projectile* projectile = a_projectile;
-    std::vector<Projectile*>::iterator index = std::find(m_activeProjectiles.begin(), m_activeProjectiles.end(),
-                                                         a_projectile);
+    std::vector<Projectile*>::iterator index = std::find(m_activeProjectiles.begin(), m_activeProjectiles.end(),a_projectile);
+    if (index == m_activeProjectiles.end())
+    {
+        return;
+    }
     m_activeProjectiles.erase(index);
-    m_pool->InsertProjectile(projectile);
+    m_pool->InsertProjectile(a_projectile);
 }

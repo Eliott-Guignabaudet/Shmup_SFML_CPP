@@ -1,5 +1,7 @@
 #include "GameOverMenuUI.h"
 
+#include "../../../Managers/RessourceManager.h"
+
 GameOverMenuUI::GameOverMenuUI() : m_quitGameButton(m_view)
 {
 }
@@ -9,11 +11,15 @@ void GameOverMenuUI::draw(sf::RenderTarget& target, sf::RenderStates states) con
     target.setView(m_view);
     //target.draw(m_startGameButton);
     target.draw(m_quitGameButton);
+    target.draw(m_gameOverText);
 }
 
 void GameOverMenuUI::Load()
 {
     m_view = sf::View({400, 400}, {800, 800});
+    m_gameOverText.setString("Game Over!");
+    m_gameOverText.setFont(*RessourceManager::GetInstance()->GetFont("Pixel"));
+    m_gameOverText.setPosition({200,200});
     //m_startGameButton.Load();
     m_quitGameButton.Load();
 }
