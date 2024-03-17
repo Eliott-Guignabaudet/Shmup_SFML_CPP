@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "../../ARenderStack.h"
 #include "../Character/AICharacter.h"
+#include "../Character/AICharacterSpawner.h"
 #include "../Character/Player.h"
 #include "../Character/ProjectilePool.h"
 
@@ -10,8 +11,8 @@ private:
     std::vector<AEntity*> m_entities;
     Player m_player;
     std::vector<Projectile*> m_activeProjectiles;
-    std::vector<AICharacter*> m_aiCharacters;
     ProjectilePool* m_pool;
+    AICharacterSpawner* m_aiSpawner;
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

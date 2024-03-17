@@ -6,11 +6,12 @@
 #include <math.h>
 
 #include "../../../Managers/DestructionManager.h"
+#include "../../../Managers/Manager.h"
 #include "../Character/AIShootVertical.h"
 #include "../Character/AiSuicideCharacter.h"
 #include "../Character/Player.h"
 
-World::World() : m_activeProjectiles()
+World::World() : m_activeProjectiles(), m_aiSpawner()
 {
 
 }
@@ -18,7 +19,7 @@ World::World() : m_activeProjectiles()
 World::~World()
 {
     delete m_pool;
-    for (AICharacter* aiCharacter : m_aiCharacters)
+    for (AICharacter* aiCharacter : m_aiSpawner->ActiveCharacters)
     {
         delete aiCharacter;
     }
@@ -32,16 +33,17 @@ void World::Load()
     auto function = std::bind(&World::ActiveProjectile, this, _1, _2, _3, _4, _5, _6, _7);
     Player player(sf::Vector2f(0, 0), sf::Vector2f(1, 5), 250, 2, function);
     m_player = player;
-
-    AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0, -200), sf::Vector2f(0, 0), 50, 10);
-    m_aiCharacters.push_back(aiCharacter);
-    AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),
-                                                                  player.getPosition() - sf::Vector2f(-100, -200),
-                                                                  20000, 1);
-    m_aiCharacters.push_back(suicideCharacter);
-
-    AIShootVertical* aiShootVertical = new AIShootVertical(sf::Vector2f(100, -200), {-1,1}, 200, 5, 0.5f, function);
-    m_aiCharacters.push_back(aiShootVertical);
+    m_aiSpawner = new AICharacterSpawner(function);
+    // AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0, -200), sf::Vector2f(0, 0), 50, 10);
+    // m_aiCharacters.push_back(aiCharacter);
+    // AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),
+    //                                                               player.getPosition() - sf::Vector2f(-100, -200),
+    //                                                               20000, 1);
+    // m_aiCharacters.push_back(suicideCharacter);
+    //
+    // AIShootVertical* aiShootVertical = new AIShootVertical(sf::Vector2f(100, -200), {-1,1}, 200, 5, 0.5f, function);
+    // m_aiCharacters.push_back(aiShootVertical);
+    
     m_view.reset(sf::FloatRect(-400, -400, 800, 800));
     m_player.Load();
 }
@@ -49,7 +51,7 @@ void World::Load()
 void World::Init()
 {
     m_player.Init();
-    for (AICharacter* character : m_aiCharacters)
+    for (AICharacter* character : m_aiSpawner->ActiveCharacters)
     {
         character->Init();
     }
@@ -60,8 +62,14 @@ void World::Update(sf::Time a_deltaTime)
 {
     m_player.Update(a_deltaTime);
     BlockPlayerInWorld();
+    m_aiSpawner->Update(a_deltaTime);
+    if (m_aiSpawner->IsSpawnerFinished())
+    {
+        Manager::GetInstance()->LoadScene("GameOver");
+    }
     
-    for (AICharacter* character : m_aiCharacters)
+    
+    for (AICharacter* character : m_aiSpawner->ActiveCharacters)
     {
         character->Update(a_deltaTime);
 
@@ -104,7 +112,7 @@ void World::CheckProjectileCollisions(Projectile* a_projectile)
 {
     if (a_projectile->GetTag() == "Player")
     {
-        for (AICharacter* aiCharacter : m_aiCharacters)
+        for (AICharacter* aiCharacter : m_aiSpawner->ActiveCharacters)
         {
             for (int i = 0; i < aiCharacter->GetBounds().getPointCount(); ++i)
             {
@@ -123,8 +131,8 @@ void World::CheckProjectileCollisions(Projectile* a_projectile)
                     {
                         delete aiCharacter;
                         std::vector<AICharacter*>::iterator index = std::find(
-                            m_aiCharacters.begin(), m_aiCharacters.end(), aiCharacter);
-                        m_aiCharacters.erase(index);
+                            m_aiSpawner->ActiveCharacters.begin(), m_aiSpawner->ActiveCharacters.end(), aiCharacter);
+                        m_aiSpawner->ActiveCharacters.erase(index);
                         m_player.AddScore(100);
                     }
                     DisableProjectile(a_projectile);
@@ -168,7 +176,7 @@ void World::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         target.draw(*projectile);
     }
-    for (AICharacter* character : m_aiCharacters)
+    for (AICharacter* character : m_aiSpawner->ActiveCharacters)
     {
         target.draw(*character);
     }
@@ -209,10 +217,7 @@ void World::DisableProjectile(Projectile* a_projectile)
 
 void World::RemoveAI(AICharacter* a_aiCharacter)
 {
-    delete a_aiCharacter;
-    std::vector<AICharacter*>::iterator index = std::find(
-        m_aiCharacters.begin(), m_aiCharacters.end(), a_aiCharacter);
-    m_aiCharacters.erase(index);
+    m_aiSpawner->RemoveAi(a_aiCharacter);
 }
 
 void World::BlockPlayerInWorld()
