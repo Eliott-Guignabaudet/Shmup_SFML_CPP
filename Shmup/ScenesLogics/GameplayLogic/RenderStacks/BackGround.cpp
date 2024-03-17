@@ -24,7 +24,7 @@ BackGround::~BackGround()
 
 void BackGround::Load()
 {
-    for (int i = 0; i < 50; ++i)
+    for (int i = 0; i < 51; ++i)
     {
         BackGroundLine* newLine = new BackGroundLine({
             {16*2, 16*4, 16, 16},
@@ -77,15 +77,9 @@ void BackGround::Load()
             {16*2, 16*4, 16, 16},
             {16*2, 16*4, 16, 16},
             {16*2, 16*4, 16, 16},
-            {16*2, 16*4, 16, 16},
-            {16*2, 16*4, 16, 16},
-            {16*2, 16*4, 16, 16},
-            {16*2, 16*4, 16, 16},
-            {16*2, 16*4, 16, 16},
-
         });
         newLine->Load();
-        newLine->setPosition({0, (static_cast<float>(i) * 16.f) - 32});
+        newLine->setPosition({0, (static_cast<float>(i) * 16.f) - 16});
         m_lines.push_back(newLine);
     }
     
@@ -124,9 +118,9 @@ void BackGround::Update(sf::Time a_deltaTime)
     for (BackGroundLine* line : m_lines)
     {
         line->move(sf::Vector2f(0, 100 * a_deltaTime.asSeconds()));
-        if (line->getPosition().y>816)
+        if (line->getPosition().y>800)
         {
-            line->move({0,-832});
+            line->move({0,-816});
         }
         line->Update(a_deltaTime);
     }
