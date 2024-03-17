@@ -52,12 +52,12 @@ void AICharacter::HandleEvent(sf::Event a_event)
 void AICharacter::SetDirection(sf::Vector2f a_direction)
 {
     Character::SetDirection(a_direction);
-    if (GetDirection() != sf::Vector2f(0,0))
-    {
-        setRotation((atan2(GetDirection().y, GetDirection().x)*180/static_cast<float>(M_PI))+90.f);
-    }
-    else
-    {
-        setRotation(0);
-    }
+    // if (GetDirection() != sf::Vector2f(0,0))
+    // {
+    //     setRotation((atan2(GetDirection().y, GetDirection().x)*180/static_cast<float>(M_PI))+90.f);
+    // }
+    // else
+    // {
+    //     setRotation(0);
+    // }
 }

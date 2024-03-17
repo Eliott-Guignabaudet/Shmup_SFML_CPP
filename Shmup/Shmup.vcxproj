@@ -162,6 +162,7 @@
     <ClCompile Include="ScenesLogics\AEntity.cpp" />
     <ClCompile Include="ScenesLogics\ARenderStack.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\Character\AICharacter.cpp" />
+    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AIShootVertical.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\Character\AiSuicideCharacter.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\Character\Character.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\Character\Player.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="ScenesLogics\AEntity.h" />
     <ClInclude Include="ScenesLogics\ARenderStack.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\Character\AICharacter.h" />
+    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AIShootVertical.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\Character\AiSuicideCharacter.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\Character\Character.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\Character\Player.h" />

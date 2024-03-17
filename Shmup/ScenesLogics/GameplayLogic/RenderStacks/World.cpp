@@ -4,6 +4,8 @@
 #include <iostream>
 #include <Windows.h>
 #include <math.h>
+
+#include "../Character/AIShootVertical.h"
 #include "../Character/AiSuicideCharacter.h"
 #include "../Character/Player.h"
 
@@ -36,6 +38,9 @@ void World::Load()
                                                                   player.getPosition() - sf::Vector2f(-100, -200),
                                                                   20000, 1);
     m_aiCharacters.push_back(suicideCharacter);
+
+    AIShootVertical* aiShootVertical = new AIShootVertical(sf::Vector2f(100, -200), {-1,1}, 200, 5, 0.5f, function);
+    m_aiCharacters.push_back(aiShootVertical);
     m_view.reset(sf::FloatRect(-400, -400, 800, 800));
     m_player.Load();
 }
