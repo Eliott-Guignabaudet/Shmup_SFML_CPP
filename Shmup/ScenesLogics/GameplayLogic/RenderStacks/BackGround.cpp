@@ -1,15 +1,17 @@
 ﻿#include "BackGround.h"
 
+#include <iostream>
+
 #include "../../../Managers/RessourceManager.h"
 
 BackGround::BackGround() : m_spriteColor(128,128,128,255)
 {
-    for (int i = 0; i < 3; ++i)
-    {
-        sf::Sprite* sprite = new sf::Sprite();
-        m_sprites.push_back(sprite);
-    }
-
+    // for (int i = 0; i < 3; ++i)
+    // {
+    //     sf::Sprite* sprite = new sf::Sprite();
+    //     m_sprites.push_back(sprite);
+    // }
+    
 }
 
 BackGround::~BackGround()
@@ -22,20 +24,89 @@ BackGround::~BackGround()
 
 void BackGround::Load()
 {
+    for (int i = 0; i < 50; ++i)
+    {
+        BackGroundLine* newLine = new BackGroundLine({
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*3, 16*4, 16, 16},
+            {16*6, 16*3, 16, 16},
+            {16*6, 16*3, 16, 16},
+            {16*6, 16*3, 16, 16},
+            {16*6, 16*3, 16, 16},
+            {16*1, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
+            {16*2, 16*4, 16, 16},
 
+        });
+        newLine->Load();
+        newLine->setPosition({0, (static_cast<float>(i) * 16.f) - 32});
+        m_lines.push_back(newLine);
+    }
+    
 }
 
 void BackGround::Init()
 {
-    m_textureRect = sf::IntRect(16*1, 16*4, 16, 16);
-    for (int i = 0; i < m_sprites.size(); ++i)
+    // m_textureRect = sf::IntRect(16*1, 16*4, 16, 16);
+    // for (int i = 0; i < m_sprites.size(); ++i)
+    // {
+    //     m_sprites[i]->setTexture(*RessourceManager::GetInstance()->GetTexture("Tiles"));
+    //     m_sprites[i]->setTextureRect(m_textureRect);
+    //     m_sprites[i]->setPosition(sf::Vector2f(0, static_cast<float>(-i * 16)));
+    //     m_sprites[i]->setColor(m_spriteColor);
+    // }
+    //m_view = sf::View(sf::FloatRect(0,0, 16,16));
+    m_view.reset(sf::FloatRect(0, 0, 800, 800));
+    for (BackGroundLine* line : m_lines)
     {
-        m_sprites[i]->setTexture(*RessourceManager::GetInstance()->GetTexture("Tiles"));
-        m_sprites[i]->setTextureRect(m_textureRect);
-        m_sprites[i]->setPosition(sf::Vector2f(0, static_cast<float>(-i * 16)));
-        m_sprites[i]->setColor(m_spriteColor);
+        line->Init();
     }
-    m_view = sf::View(sf::FloatRect(0,0, 16,16));
     ARenderStack::Init();
 }
 
@@ -49,6 +120,16 @@ void BackGround::Update(sf::Time a_deltaTime)
             sprite->move(sf::Vector2f(0, -32));
         }
     }
+
+    for (BackGroundLine* line : m_lines)
+    {
+        line->move(sf::Vector2f(0, 100 * a_deltaTime.asSeconds()));
+        if (line->getPosition().y>816)
+        {
+            line->move({0,-832});
+        }
+        line->Update(a_deltaTime);
+    }
 }
 
 void BackGround::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -57,6 +138,10 @@ void BackGround::draw(sf::RenderTarget& target, sf::RenderStates states) const
     for (sf::Sprite* sprite : m_sprites)
     {
         target.draw(*sprite);
+    }
+    for (BackGroundLine* line : m_lines)
+    {
+        target.draw(*line);
     }
 }
 

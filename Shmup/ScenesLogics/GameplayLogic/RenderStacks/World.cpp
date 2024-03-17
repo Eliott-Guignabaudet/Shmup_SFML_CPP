@@ -31,18 +31,9 @@ void World::Load()
     using namespace std::placeholders;
     m_pool = new ProjectilePool(10);
     auto function = std::bind(&World::ActiveProjectile, this, _1, _2, _3, _4, _5, _6, _7);
-    Player player(sf::Vector2f(0, 0), sf::Vector2f(1, 5), 250, 2, function);
+    Player player(sf::Vector2f(0, 0), sf::Vector2f(1, 5), 250, 3, function);
     m_player = player;
     m_aiSpawner = new AICharacterSpawner(function);
-    // AICharacter* aiCharacter = new AICharacter(sf::Vector2f(0, -200), sf::Vector2f(0, 0), 50, 10);
-    // m_aiCharacters.push_back(aiCharacter);
-    // AiSuicideCharacter* suicideCharacter = new AiSuicideCharacter(sf::Vector2f(-100, -200),
-    //                                                               player.getPosition() - sf::Vector2f(-100, -200),
-    //                                                               20000, 1);
-    // m_aiCharacters.push_back(suicideCharacter);
-    //
-    // AIShootVertical* aiShootVertical = new AIShootVertical(sf::Vector2f(100, -200), {-1,1}, 200, 5, 0.5f, function);
-    // m_aiCharacters.push_back(aiShootVertical);
     
     m_view.reset(sf::FloatRect(-400, -400, 800, 800));
     m_player.Load();

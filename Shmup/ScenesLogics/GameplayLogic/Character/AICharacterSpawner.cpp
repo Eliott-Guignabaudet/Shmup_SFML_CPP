@@ -18,7 +18,9 @@ AICharacterSpawner::AICharacterSpawner(std::function<void(std::string , sf::Vect
     m_aiCharactersToSpawn = {
         {{100, -200}, {-1, 1}, 1, "ShootVertical", false},
         {{100, -200}, {-1, 1}, 3, "ShootVertical", false},
-        {{100, -200}, {-1, 1}, 5, "ShootVertical", false}
+        {{100, -200}, {-1, 1}, 5, "ShootVertical", false},
+        {{-200, -200}, {1, 1}, 4, "ShootVertical", false},
+        {{0, 0}, {0, 0}, 10, "", false},
     };
 }
 
@@ -27,12 +29,16 @@ void AICharacterSpawner::SpawnAI(int a_index)
     AiCharacterSpawn* spawn = &m_aiCharactersToSpawn[a_index];
     if (spawn->AICharacterType == "ShootVertical")
     {
-        AIShootVertical* newAi = new AIShootVertical(spawn->SpawnPosition, spawn->SpawnDirection, 200, 5, 0.5f, m_shootCallBack);
+        AIShootVertical* newAi = new AIShootVertical(spawn->SpawnPosition, spawn->SpawnDirection, 100, 5, 0.5f, m_shootCallBack);
+        newAi->Load();
+        newAi->Init();
         ActiveCharacters.push_back(newAi);
     }
     if (spawn->AICharacterType == "Suicide")
     {
-        AiSuicideCharacter* newAi = new AiSuicideCharacter(spawn->SpawnPosition, spawn->SpawnDirection, 20000, 1);
+        AiSuicideCharacter* newAi = new AiSuicideCharacter(spawn->SpawnPosition, spawn->SpawnDirection, 10000, 1);
+        newAi->Load();
+        newAi->Init();
         ActiveCharacters.push_back(newAi);
     }
     spawn->IsSpawned = true;
