@@ -26,4 +26,5 @@ public:
     void ActiveProjectile(std::string a_tag, sf::Vector2f a_position, sf::Vector2f a_direction, std::string a_tileMap,std::pair<int, int> a_tileIndex, int a_tileSize, float a_speed);
     void DisableProjectile(Projectile* a_projectile);
     void RemoveAI(AICharacter* a_aiCharacter);
+    void BlockPlayerInWorld();
 };

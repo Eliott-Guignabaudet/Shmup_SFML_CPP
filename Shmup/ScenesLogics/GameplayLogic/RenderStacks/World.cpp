@@ -59,6 +59,8 @@ void World::Init()
 void World::Update(sf::Time a_deltaTime)
 {
     m_player.Update(a_deltaTime);
+    BlockPlayerInWorld();
+    
     for (AICharacter* character : m_aiCharacters)
     {
         character->Update(a_deltaTime);
@@ -212,4 +214,27 @@ void World::RemoveAI(AICharacter* a_aiCharacter)
         m_aiCharacters.begin(), m_aiCharacters.end(), a_aiCharacter);
     m_aiCharacters.erase(index);
 }
+
+void World::BlockPlayerInWorld()
+{
+    float posX = m_player.getPosition().x;
+    float posY = m_player.getPosition().y;
+    if (posX > 384 )
+    {
+        m_player.setPosition({384, posY});
+    }
+    if (posX < -384)
+    {
+        m_player.setPosition({-384, posY});
+    }
+    if (posY > 384 )
+    {
+        m_player.setPosition({posX, 384});
+    }
+    if (posY < -384)
+    {
+        m_player.setPosition({posX, -384});
+    }
+}
+
 

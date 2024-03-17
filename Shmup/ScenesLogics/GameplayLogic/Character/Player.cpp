@@ -1,5 +1,7 @@
 ﻿#include "Player.h"
 
+#include <iostream>
+
 #include "../../../Managers/Manager.h"
 #include "../../../Managers/RessourceManager.h"
 
