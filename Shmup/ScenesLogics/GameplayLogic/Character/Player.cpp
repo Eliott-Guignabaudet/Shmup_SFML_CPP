@@ -68,7 +68,7 @@ void Player::TakeDamage()
     m_invicibleTime = 0.f;
     if (GetIsDead())
     {
-        Manager::GetInstance()->LoadScene("Menu");
+        Manager::GetInstance()->LoadScene("GameOver");
     }
 }
 

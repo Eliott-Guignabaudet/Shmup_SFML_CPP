@@ -1,6 +1,7 @@
 ﻿#include "Manager.h"
 
 #include "DestructionManager.h"
+#include "../ScenesLogics/GameOverMenu/GameOverScene.h"
 #include "../ScenesLogics/GameplayLogic/GameplayScene.h"
 #include "../ScenesLogics/Menu/MenuScene.h"
 
@@ -13,6 +14,8 @@ Manager::Manager() : m_actualScene(nullptr),  m_window(sf::VideoMode(800,800), "
     m_scenes.insert({"Gameplay", gameplayScene});
     MenuScene* menuScene = new MenuScene();
     m_scenes.insert({"Menu", menuScene});
+    GameOverScene* gameOverScene = new GameOverScene();
+    m_scenes.insert({"GameOver", gameOverScene});
 }
 
 Manager::~Manager()
