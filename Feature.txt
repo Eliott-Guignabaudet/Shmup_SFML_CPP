@@ -1,6 +1,5 @@
 - game over
 - Plusieurs niveaux
 - 3-4 IA ennemis
-- Mode vagues inifnis
 - Bonus et armes pour le joueur (colectibles in game)
 - Améliorer le background

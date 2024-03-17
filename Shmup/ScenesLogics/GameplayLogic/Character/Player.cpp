@@ -56,6 +56,14 @@ void Player::Update(sf::Time a_deltaTime)
     //rotate(180* a_deltaTime.asSeconds());
     Character::Update(a_deltaTime);
     m_invicibleTime += a_deltaTime.asSeconds();
+    if (m_invicibleTime < 1.f)
+    {
+        m_sprite.setColor(sf::Color::Green);
+    }
+    else
+    {
+        m_sprite.setColor(sf::Color::White);
+    }
 }
 
 void Player::TakeDamage()
@@ -80,6 +88,7 @@ void Player::AddScore(int a_score)
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     Character::draw(target, states);
+    
     sf::Text scoreText(std::to_string(m_score),*RessourceManager::GetInstance()->GetFont("Pixel"));
     
     scoreText.setPosition(-380,-380);
