@@ -162,6 +162,7 @@
     <ClCompile Include="ScenesLogics\AEntity.cpp" />
     <ClCompile Include="ScenesLogics\ARenderStack.cpp" />
     <ClCompile Include="ScenesLogics\GameOverMenu\GameOverScene.cpp" />
+    <ClCompile Include="ScenesLogics\GameOverMenu\MenuButton.cpp" />
     <ClCompile Include="ScenesLogics\GameOverMenu\RenderStacks\GameOverMenuUI.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\Character\AICharacter.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\Character\AIShootVertical.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="ScenesLogics\AEntity.h" />
     <ClInclude Include="ScenesLogics\ARenderStack.h" />
     <ClInclude Include="ScenesLogics\GameOverMenu\GameOverScene.h" />
+    <ClInclude Include="ScenesLogics\GameOverMenu\MenuButton.h" />
     <ClInclude Include="ScenesLogics\GameOverMenu\RenderStacks\GameOverMenuUI.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\Character\AICharacter.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\Character\AIShootVertical.h" />
