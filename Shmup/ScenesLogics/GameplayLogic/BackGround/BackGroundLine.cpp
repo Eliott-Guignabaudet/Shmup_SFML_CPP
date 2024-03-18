@@ -33,8 +33,6 @@ void BackGroundLine::Init()
 void BackGroundLine::Update(sf::Time a_deltaTime)
 {
     
-    std::cout << m_sprites.size()<< std::endl;
-
 }
 
 void BackGroundLine::HandleEvent(sf::Event a_event)

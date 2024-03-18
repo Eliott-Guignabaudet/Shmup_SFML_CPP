@@ -24,7 +24,7 @@ Manager::~Manager()
     {
         delete scene.second;
     }
-}
+} 
 
 Manager* Manager::GetInstance()
 {

@@ -1,0 +1,81 @@
+{
+  "Levels": [
+    {
+      "Name": "First Level",
+      "AiSpawner": [
+        {
+          "SpawnPosition": {
+            "x": 100,
+            "y": -200
+          },
+          "SpawnDirection": {
+            "x": -1,
+            "y": 1
+          },
+          "SpawnTime": 1,
+          "CharacterType": 1
+        },
+        {
+          "SpawnPosition": {
+            "x": 100,
+            "y": -200
+          },
+          "SpawnDirection": {
+            "x": -1,
+            "y": 1
+          },
+          "SpawnTime": 3,
+          "CharacterType": 1
+        },
+        {
+          "SpawnPosition": {
+            "x": 100,
+            "y": -200
+          },
+          "SpawnDirection": {
+            "x": -1,
+            "y": 1
+          },
+          "SpawnTime": 3,
+          "CharacterType": 1
+        },
+        {
+          "SpawnPosition": {
+            "x": 0,
+            "y": -200
+          },
+          "SpawnDirection": {
+            "x": 0.5,
+            "y": 1
+          },
+          "SpawnTime": 5,
+          "CharacterType": 1
+        },
+        {
+          "SpawnPosition": {
+            "x": -200,
+            "y": -300
+          },
+          "SpawnDirection": {
+            "x": 1,
+            "y": 1
+          },
+          "SpawnTime": 8,
+          "CharacterType": 1
+        },
+        {
+          "SpawnPosition": {
+            "x": 300,
+            "y": -200
+          },
+          "SpawnDirection": {
+            "x": -1,
+            "y": 2
+          },
+          "SpawnTime": 10,
+          "CharacterType": 1
+        }
+      ]
+    }
+  ]
+}

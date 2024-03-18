@@ -1,7 +1,9 @@
 ﻿#pragma once
+#include <nlohmann/json_fwd.hpp>
+
 #include "../../ARenderStack.h"
-#include "../Character/AICharacter.h"
-#include "../Character/AICharacterSpawner.h"
+#include "../Character/AI/AICharacter.h"
+#include "../Character/AI/AICharacterSpawner.h"
 #include "../Character/Player.h"
 #include "../Character/ProjectilePool.h"
 
@@ -13,11 +15,13 @@ private:
     std::vector<Projectile*> m_activeProjectiles;
     ProjectilePool* m_pool;
     AICharacterSpawner* m_aiSpawner;
+    nlohmann::json* m_levelData;
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 public:
     World();
+    World(nlohmann::json* a_levelData);
     ~World() override;
     void Load() override;
     void Init() override;

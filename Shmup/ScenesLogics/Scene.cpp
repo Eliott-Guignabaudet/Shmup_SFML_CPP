@@ -1,5 +1,8 @@
 ﻿#include "Scene.h"
 
+#include <fstream>
+#include <iostream>
+
 #include "../Managers/DestructionManager.h"
 #include "../Managers/RessourceManager.h"
 
@@ -23,6 +26,7 @@ void Scene::Load()
     {
         stack->Load();
     }
+    
 }
 
 void Scene::Unload()

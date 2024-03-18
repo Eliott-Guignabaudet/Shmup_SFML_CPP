@@ -7,13 +7,17 @@
 
 #include "../../../Managers/DestructionManager.h"
 #include "../../../Managers/Manager.h"
-#include "../Character/AIShootVertical.h"
-#include "../Character/AiSuicideCharacter.h"
+#include "../Character/AI/AIShootVertical.h"
+#include "../Character/AI/AiSuicideCharacter.h"
 #include "../Character/Player.h"
 
-World::World() : m_activeProjectiles(), m_aiSpawner()
+World::World() : m_activeProjectiles(), m_aiSpawner(), m_levelData()
 {
 
+}
+
+World::World(nlohmann::json* a_levelData) : m_aiSpawner(), m_levelData(a_levelData)
+{
 }
 
 World::~World()
@@ -33,7 +37,7 @@ void World::Load()
     auto function = std::bind(&World::ActiveProjectile, this, _1, _2, _3, _4, _5, _6, _7);
     Player player(sf::Vector2f(0, 0), sf::Vector2f(1, 5), 250, 3, function);
     m_player = player;
-    m_aiSpawner = new AICharacterSpawner(function);
+    m_aiSpawner = new AICharacterSpawner(m_levelData,function);
     
     m_view.reset(sf::FloatRect(-400, -400, 800, 800));
     m_player.Load();

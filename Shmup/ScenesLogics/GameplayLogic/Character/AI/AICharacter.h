@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <functional>
 
-#include "Character.h"
+#include "../Character.h"
 
 class AICharacter : public Character
 {

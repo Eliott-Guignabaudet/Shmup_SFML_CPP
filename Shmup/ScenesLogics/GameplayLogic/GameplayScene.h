@@ -3,6 +3,8 @@
 
 class GameplayScene : public Scene
 {
+private:
+    nlohmann::json* m_levelData;
 public:
     GameplayScene();
     void Load() override;

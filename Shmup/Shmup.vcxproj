@@ -165,11 +165,12 @@
     <ClCompile Include="ScenesLogics\GameOverMenu\MenuButton.cpp" />
     <ClCompile Include="ScenesLogics\GameOverMenu\RenderStacks\GameOverMenuUI.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\BackGround\BackGroundLine.cpp" />
-    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AICharacter.cpp" />
-    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AiCharacterSpawn.cpp" />
-    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AICharacterSpawner.cpp" />
-    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AIShootVertical.cpp" />
-    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AiSuicideCharacter.cpp" />
+    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AI\AICharacter.cpp" />
+    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AI\AiCharacterSpawn.cpp" />
+    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AI\AICharacterSpawner.cpp" />
+    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AI\AiCharacterType.cpp" />
+    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AI\AIShootVertical.cpp" />
+    <ClCompile Include="ScenesLogics\GameplayLogic\Character\AI\AiSuicideCharacter.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\Character\Character.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\Character\Player.cpp" />
     <ClCompile Include="ScenesLogics\GameplayLogic\Character\Projectile.cpp" />
@@ -196,11 +197,12 @@
     <ClInclude Include="ScenesLogics\GameOverMenu\MenuButton.h" />
     <ClInclude Include="ScenesLogics\GameOverMenu\RenderStacks\GameOverMenuUI.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\BackGround\BackGroundLine.h" />
-    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AICharacter.h" />
-    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AiCharacterSpawn.h" />
-    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AICharacterSpawner.h" />
-    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AIShootVertical.h" />
-    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AiSuicideCharacter.h" />
+    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AI\AICharacter.h" />
+    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AI\AiCharacterSpawn.h" />
+    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AI\AICharacterSpawner.h" />
+    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AI\AiCharacterType.h" />
+    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AI\AIShootVertical.h" />
+    <ClInclude Include="ScenesLogics\GameplayLogic\Character\AI\AiSuicideCharacter.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\Character\Character.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\Character\Player.h" />
     <ClInclude Include="ScenesLogics\GameplayLogic\Character\Projectile.h" />
@@ -219,4 +221,14 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ItemGroup>
+    <Content Include="Data\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

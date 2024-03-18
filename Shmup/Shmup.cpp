@@ -3,9 +3,11 @@
 
 
 #include <iostream>
+#include <fstream>
 #include "Managers/Manager.h"
+#include <nlohmann/json.hpp>
 #include "ScenesLogics/GameplayLogic/Character/Character.h"
-
+using json = nlohmann::json;
 int main()
 {
     std::cout << "Hello World!\n";
@@ -23,7 +25,24 @@ int main()
     // {
     //     delete myCharacter;
     // }
+
+    std::ifstream  ifs("./Data/LevelDatas.json");
+    if (ifs)
+    {
+        json js = json::parse(ifs);
+        std::cout<<js["Levels"][0]["AiSpawner"] << std::endl;
+    }
+    else
+    {
+        std::cout << "JSON FIle does not exist" << std::endl;
+    }
     
+
+    
+    
+
+     //This will print the entire json object.
+
     Manager::GetInstance()->Run();
 }
 
