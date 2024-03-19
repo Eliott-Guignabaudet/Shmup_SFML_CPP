@@ -34,7 +34,7 @@ void StartGameButton::Update(sf::Time a_deltaTime)
 
 void StartGameButton::OnClick()
 {
-    Manager::GetInstance()->LoadScene("Gameplay");
+    Manager::GetInstance()->LoadScene("ChooseLevel");
 }
 
 void StartGameButton::OnMouseEnter()

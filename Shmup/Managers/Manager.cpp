@@ -1,6 +1,8 @@
 ﻿#include "Manager.h"
 
 #include "DestructionManager.h"
+#include "../ScenesLogics/ChooseLevelMenu/ChooseLevelMenuScene.h"
+#include "../ScenesLogics/ChooseLevelMenu/RenderStacks/ChooseLevelMenuUI.h"
 #include "../ScenesLogics/GameOverMenu/GameOverScene.h"
 #include "../ScenesLogics/GameplayLogic/GameplayScene.h"
 #include "../ScenesLogics/Menu/MenuScene.h"
@@ -16,6 +18,8 @@ Manager::Manager() : m_actualScene(nullptr),  m_window(sf::VideoMode(800,800), "
     m_scenes.insert({"Menu", menuScene});
     GameOverScene* gameOverScene = new GameOverScene();
     m_scenes.insert({"GameOver", gameOverScene});
+    ChooseLevelMenuScene* chooseLevelMenuScene = new ChooseLevelMenuScene();
+    m_scenes.insert({"ChooseLevel", chooseLevelMenuScene});
 }
 
 Manager::~Manager()

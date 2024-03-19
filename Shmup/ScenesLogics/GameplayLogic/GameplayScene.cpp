@@ -36,7 +36,6 @@ void GameplayScene::Load()
         {
             m_levelData = new nlohmann::json();
             *m_levelData = jsonData["Levels"][0];
-            std::cout << *m_levelData << std::endl;
         }
         
         

@@ -25,20 +25,6 @@ int main()
     // {
     //     delete myCharacter;
     // }
-
-    std::ifstream  ifs("./Data/LevelDatas.json");
-    if (ifs)
-    {
-        json js = json::parse(ifs);
-        std::cout<<js["Levels"][0]["AiSpawner"] << std::endl;
-    }
-    else
-    {
-        std::cout << "JSON FIle does not exist" << std::endl;
-    }
-    
-
-    
     
 
      //This will print the entire json object.
