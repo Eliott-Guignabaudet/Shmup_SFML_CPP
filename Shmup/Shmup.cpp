@@ -3,11 +3,11 @@
 
 
 #include <iostream>
-#include <fstream>
 #include "Managers/Manager.h"
 #include <nlohmann/json.hpp>
-#include "ScenesLogics/GameplayLogic/Character/Character.h"
-using json = nlohmann::json;
+#include <noise/noise.h>
+#include <noise/noiseutils.h>
+using namespace noise;
 int main()
 {
     std::cout << "Hello World!\n";
@@ -29,6 +29,18 @@ int main()
 
      //This will print the entire json object.
 
+    
+    // utils::RendererImage renderer;
+    // utils::Image image;
+    // renderer.SetSourceNoiseMap (heightMap);
+    // renderer.SetDestImage (image);
+    // renderer.Render ();
+    //
+    // utils::WriterBMP writer;
+    // writer.SetSourceImage (image);
+    // writer.SetDestFilename ("tutorial3.bmp");
+    // writer.WriteDestFile ();
+    
     Manager::GetInstance()->Run();
 }
 

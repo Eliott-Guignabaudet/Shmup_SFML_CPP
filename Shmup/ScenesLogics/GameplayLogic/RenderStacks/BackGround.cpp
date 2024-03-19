@@ -1,9 +1,11 @@
 ﻿#include "BackGround.h"
 
 #include <iostream>
-
+#include <noise/noise.h>
+#include <noise/noiseutils.h>
 #include "../../../Managers/RessourceManager.h"
 
+using namespace noise;
 BackGround::BackGround() : m_spriteColor(128,128,128,255)
 {
     // for (int i = 0; i < 3; ++i)
@@ -24,7 +26,7 @@ BackGround::~BackGround()
 
 void BackGround::Load()
 {
-    for (int i = 0; i < 51; ++i)
+    /*for (int i = 0; i < 51; ++i)
     {
         BackGroundLine* newLine = new BackGroundLine({
             {16*2, 16*4, 16, 16},
@@ -81,8 +83,37 @@ void BackGround::Load()
         newLine->Load();
         newLine->setPosition({0, (static_cast<float>(i) * 16.f) - 16});
         m_lines.push_back(newLine);
-    }
+    }*/
     
+    module::Perlin myModule;
+    utils::NoiseMap heightMap;
+    utils::NoiseMapBuilderPlane heightMapBuilder;
+    heightMapBuilder.SetSourceModule (myModule);
+    heightMapBuilder.SetDestNoiseMap (heightMap);
+    heightMapBuilder.SetDestSize(51,51);
+    heightMapBuilder.SetBounds(2.0, 6.0, 0.9, 4.9);
+    heightMapBuilder.Build ();
+
+    for (int i = 0; i < heightMap.GetHeight(); ++i)
+    {
+        std::vector<sf::IntRect> newLineRects = std::vector<sf::IntRect>(); 
+        for (int j = 0; j < heightMap.GetWidth(); ++j)
+        {
+            
+            if (heightMap.GetValue(i,j) < -0.5)
+            {
+                newLineRects.push_back({16 * 6,16*3,16,16});
+            }
+            else
+            {
+                newLineRects.push_back({16 * 2,16*4,16,16});
+            }
+        }
+        BackGroundLine* newLine = new BackGroundLine(newLineRects);
+        newLine->Load();
+        newLine->setPosition({0, (static_cast<float>(i) * 16.f) - 16});
+        m_lines.push_back(newLine);
+    }
 }
 
 void BackGround::Init()
@@ -114,7 +145,7 @@ void BackGround::Update(sf::Time a_deltaTime)
             sprite->move(sf::Vector2f(0, -32));
         }
     }
-
+    
     for (BackGroundLine* line : m_lines)
     {
         line->move(sf::Vector2f(0, 100 * a_deltaTime.asSeconds()));

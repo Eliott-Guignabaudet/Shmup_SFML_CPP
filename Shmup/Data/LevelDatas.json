@@ -93,7 +93,8 @@
           "CharacterType": 1
         }
       ]
-    },{
+    },
+    {
       "Name": "Third Level",
       "AiSpawner": [
         {
