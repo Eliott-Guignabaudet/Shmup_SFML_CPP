@@ -1,7 +1,21 @@
 #include "ChooseLevelMenuUI.h"
 
+#include <fstream>
+#include <nlohmann/json.hpp>
+#include <nlohmann/json_fwd.hpp>
+
+#include "../../../Managers/DestructionManager.h"
+
 ChooseLevelMenuUI::ChooseLevelMenuUI() : m_levelButtons()
 {
+}
+
+ChooseLevelMenuUI::~ChooseLevelMenuUI()
+{
+    for (auto button : m_levelButtons)
+    {
+        DestructionManager::GetInstance()->AddPtrToDestroy(button);
+    }
 }
 
 void ChooseLevelMenuUI::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -16,8 +30,17 @@ void ChooseLevelMenuUI::draw(sf::RenderTarget& target, sf::RenderStates states) 
 void ChooseLevelMenuUI::Load()
 {
     m_view = sf::View({400, 400}, {800, 800});
-    ChooseLevelButton* newLevelButton = new ChooseLevelButton(m_view, 0);
-    m_levelButtons.push_back(newLevelButton);
+    std::ifstream  ifs("./Data/LevelDatas.json");
+    if (ifs)
+    {
+        nlohmann::json jsonData = nlohmann::json::parse(ifs);
+        for (int i = 0; i < jsonData["Levels"].size(); ++i)
+        {
+            ChooseLevelButton* newLevelButton = new ChooseLevelButton(m_view, i, jsonData["Levels"][i]);
+            m_levelButtons.push_back(newLevelButton);
+        }
+    }
+    
 }
 
 void ChooseLevelMenuUI::Update(sf::Time a_deltaTime)
@@ -30,8 +53,13 @@ void ChooseLevelMenuUI::Update(sf::Time a_deltaTime)
 
 void ChooseLevelMenuUI::Init()
 {
-    m_levelButtons[0]->Init();
-    m_levelButtons[0]->setPosition(400,400);
+    for (int i = 0; i < m_levelButtons.size(); ++i)
+    {
+        m_levelButtons[i]->Init();
+        m_levelButtons[i]->setPosition(400,200 + 100*(i));
+    }
+    
+    
     ARenderStack::Init();
 }
 

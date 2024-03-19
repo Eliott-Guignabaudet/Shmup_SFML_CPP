@@ -21,6 +21,7 @@ public:
     void Run();
     void LoadScene(int a_index);
     void LoadScene(std::string a_sceneName);
+    void LoadGameplayScene(std::string a_sceneName, nlohmann::json a_levelData);
     sf::Vector2f GetMousePositionMapped(sf::View a_view);
     sf::Vector2u GetWindowSize();
     static Manager* GetInstance();

@@ -8,5 +8,6 @@ private:
 public:
     GameplayScene();
     void Load() override;
+    void Load(nlohmann::json a_LevelData);
     void Unload() override;
 };

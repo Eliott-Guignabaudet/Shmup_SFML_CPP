@@ -54,6 +54,31 @@ void GameplayScene::Load()
     Scene::Load();
 }
 
+void GameplayScene::Load(nlohmann::json a_LevelData)
+{
+    if (!RessourceManager::GetInstance()->LoadTexture("Ships", "Assets/kenney_pixel-shmup/Tilemap/ships_packed.png"))
+    {
+        std::cout << "Fail to load Ships" << std::endl;
+    }
+    if (!RessourceManager::GetInstance()->LoadTexture("Tiles", "Assets/kenney_pixel-shmup/Tilemap/tiles_packed.png"))
+    {
+        std::cout << "Fail to load Tiles" << std::endl;
+    }
+    if (!RessourceManager::GetInstance()->LoadFont("Pixel", "Assets/Fonts/depixel/DePixelHalbfett.otf"))
+    {
+        std::cout << "Fail to load Font Pixel" << std::endl;
+    }
+    m_levelData = new nlohmann::json();
+    *m_levelData= a_LevelData;
+    BackGround* backgroundStack = new BackGround();
+    World* worldStack = new World(m_levelData);
+
+    m_renderStacks.push_back(backgroundStack);
+    m_renderStacks.push_back(worldStack);
+    // Load Render Stacks
+    Scene::Load();
+}
+
 void GameplayScene::Unload()
 {
     Scene::Unload();

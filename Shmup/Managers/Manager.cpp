@@ -79,6 +79,18 @@ void Manager::LoadScene(int a_index)
     m_actualScene->Init();
 }
 
+void Manager::LoadGameplayScene(std::string a_sceneName, nlohmann::json a_levelData)
+{
+    if (m_actualScene != nullptr)
+    {
+        m_actualScene->Unload();
+    }
+    m_actualScene = m_scenes[a_sceneName];
+    GameplayScene* gameplayScene = dynamic_cast<GameplayScene*>(m_actualScene);
+    gameplayScene->Load(a_levelData);
+    gameplayScene->Init();
+}
+
 void Manager::Init()
 {
     m_actualScene->Init();

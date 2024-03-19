@@ -21,7 +21,7 @@ void BackGroundLine::Load()
         newSprite->setTexture(*RessourceManager::GetInstance()->GetTexture("Tiles"));
         newSprite->setTextureRect(m_sprtitesRects[i]);
         newSprite->setPosition({(static_cast<float>(i) * 16.f), 0.f});
-        newSprite->setColor({128,128,128,255});
+        newSprite->setColor({192,192,192,255});
         m_sprites.push_back(newSprite);
     }
 }

@@ -1,4 +1,6 @@
 #pragma once
+#include <nlohmann/json.hpp>
+
 #include "../Menu/AButton.h"
 
 class ChooseLevelButton : public AButton
@@ -11,10 +13,11 @@ public:
     void Init() override;
     void Update(sf::Time a_deltaTime) override;
     ChooseLevelButton(sf::View& a_view);
-    ChooseLevelButton(sf::View& a_view,int a_levelIndex);
+    ChooseLevelButton(sf::View& a_view,int a_levelIndex, nlohmann::json a_levelData);
 private:
     int m_levelIndex;
     sf::Text m_text;
+    nlohmann::json m_levelData;
 
     void OnClick() override;
     void OnMouseEnter() override;

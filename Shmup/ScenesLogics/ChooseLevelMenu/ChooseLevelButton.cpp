@@ -6,7 +6,7 @@
 ChooseLevelButton::ChooseLevelButton(sf::View& a_view):
     AButton(a_view),
     m_levelIndex(0),
-    m_text("Level " + m_levelIndex, *RessourceManager::GetInstance()->GetFont("Pixel"))
+    m_text("Level 0", *RessourceManager::GetInstance()->GetFont("Pixel"))
 {
     m_text.setFillColor(sf::Color::Black);
     m_text.setCharacterSize(30);
@@ -14,10 +14,11 @@ ChooseLevelButton::ChooseLevelButton(sf::View& a_view):
     m_text.setPosition({(m_bounds.getLocalBounds().getSize()/2.f) - (m_text.getLocalBounds().getSize()/2.f) });
 }
 
-ChooseLevelButton::ChooseLevelButton(sf::View& a_view, int a_levelIndex) :
+ChooseLevelButton::ChooseLevelButton(sf::View& a_view, int a_levelIndex, nlohmann::json a_levelData) :
     AButton(a_view),
     m_levelIndex(a_levelIndex),
-    m_text("Level " + m_levelIndex, *RessourceManager::GetInstance()->GetFont("Pixel"))
+    m_levelData(a_levelData),
+    m_text("Level " + std::to_string(a_levelIndex), *RessourceManager::GetInstance()->GetFont("Pixel"))
 {
     m_text.setFillColor(sf::Color::Black);
     m_text.setCharacterSize(30);
@@ -47,7 +48,7 @@ void ChooseLevelButton::Update(sf::Time a_deltaTime)
 
 void ChooseLevelButton::OnClick()
 {
-    Manager::GetInstance()->LoadScene("Gameplay");
+    Manager::GetInstance()->LoadGameplayScene("Gameplay", m_levelData);
 }
 
 void ChooseLevelButton::OnMouseEnter()
